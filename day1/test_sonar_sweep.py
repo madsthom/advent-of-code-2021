@@ -1,12 +1,13 @@
 import unittest
 
-from day1.sonar_sweep import input_from_file, increase_count, sliding_increase_count
+from day1.sonar_sweep import increase_count, sliding_increase_count
+from helpers.file_handling import int_input_from_file
 
 
 class Day1TestCase(unittest.TestCase):
     def test_input_from_file(self):
         """Test that input_from_file returns a list of ints"""
-        assert input_from_file("input_test") == [
+        assert int_input_from_file("input_test") == [
             199,
             200,
             208,

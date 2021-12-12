@@ -1,9 +1,3 @@
-# Input from file to int array
-def input_from_file(file_name: str) -> [int]:
-    with open(file_name) as f:
-        return [int(line) for line in f]
-
-
 def increase_count(input_array: [int]) -> int:
     count = 0
     for index in range(len(input_array) - 1):
