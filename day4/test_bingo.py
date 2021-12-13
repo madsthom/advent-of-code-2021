@@ -1,6 +1,6 @@
 import unittest
 
-from day4.bingo import parse_numbers_drawn, parse_boards, update_boards, check_boards, calculate_score
+from day4.bingo import parse_numbers_drawn, parse_boards, update_boards, check_boards, calculate_score, find_last
 
 
 class MyTestCase(unittest.TestCase):
@@ -27,11 +27,18 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(1, second_board[0, 0][1])
 
         boards = parse_boards("input")
-        winning_board, step = check_boards(boards, numbers_drawn)
-        winning_number = numbers_drawn[step]
-        print("winning num: " + str(winning_number))
+        winning_board, winning_number = check_boards(boards, numbers_drawn)
+        print("winning number: " + str(winning_number))
         score = calculate_score(winning_number, winning_board)
-        print(score)
+        print("score: " + str(score))
+
+    def test_find_last(self):
+        numbers_drawn = parse_numbers_drawn("input")
+        boards = parse_boards("input")
+        last, number = find_last(boards, numbers_drawn)
+        print(last)
+        print(number)
+        print(calculate_score(number, last))
 
     if __name__ == '__main__':
         unittest.main()

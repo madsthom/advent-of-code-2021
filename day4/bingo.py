@@ -40,20 +40,34 @@ def update_boards(boards, numbers_drawn, step):
     return boards
 
 
+def find_last(boards, numbers_drawn):
+    last = None
+    last_num = 0
+    while len(boards) != 0:
+        board, number = check_boards(boards, numbers_drawn)
+        boards = list(filter(lambda x: not np.array_equal(x, board), boards))
+        if len(boards) == 1:
+            last = boards[0]
+        if len(boards) == 0:
+            last_num = number
+
+    return last, last_num
+
+
 def check_boards(boards, numbers_drawn):
     bingo = False
-    step = 0
+    step = -1
     winning_board = None
     winning_number = 0
     while not bingo:
+        step = step + 1
         boards = update_boards(boards, numbers_drawn, step)
         for board in boards:
             for row in board:
                 if [r[1] for r in row] == [1, 1, 1, 1, 1]:
                     winning_board = board
                     winning_number = int(numbers_drawn[step])
-                    print("winning number " + str(numbers_drawn[step]))
-                    bingo = True
+                    return winning_board, winning_number
 
         for board in boards:
             for elm in range(5):
@@ -64,10 +78,7 @@ def check_boards(boards, numbers_drawn):
                 if fill_count == 5:
                     winning_board = board
                     winning_number = int(numbers_drawn[step])
-                    print("winning number col" + str(numbers_drawn[step]))
-                    bingo = True
-        step = step + 1
-    return winning_board, winning_number
+                    return winning_board, winning_number
 
 
 def calculate_score(winning_number, winning_board):
@@ -77,4 +88,4 @@ def calculate_score(winning_number, winning_board):
             if int(number[1]) == 0:
                 sumb = sumb + int(number[0])
 
-    return sumb * 74
+    return sumb * winning_number
