@@ -1,6 +1,6 @@
 import unittest
 
-from day4.bingo import parse_numbers_drawn, parse_boards
+from day4.bingo import parse_numbers_drawn, parse_boards, update_boards, check_boards, calculate_score
 
 
 class MyTestCase(unittest.TestCase):
@@ -12,8 +12,26 @@ class MyTestCase(unittest.TestCase):
 
     def test_parse_boards(self):
         boards = parse_boards("input")
-        self.assertEqual("31 23 52 26 8", boards[0][1])
+        first_board = boards[0]
+        self.assertEqual(31, first_board[0, 0][0])
 
+        second_board = boards[1]
+        self.assertEqual(27, second_board[0, 0][0])
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_draw_number_updates_boards(self):
+        numbers_drawn = parse_numbers_drawn("input")
+        boards = parse_boards("input")
+        boards = update_boards(boards, numbers_drawn, 0)
+        second_board = boards[1]
+        self.assertEqual(27, second_board[0, 0][0])
+        self.assertEqual(1, second_board[0, 0][1])
+
+        boards = parse_boards("input")
+        winning_board, step = check_boards(boards, numbers_drawn)
+        winning_number = numbers_drawn[step]
+        print("winning num: " + str(winning_number))
+        score = calculate_score(winning_number, winning_board)
+        print(score)
+
+    if __name__ == '__main__':
+        unittest.main()
