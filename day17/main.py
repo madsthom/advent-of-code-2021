@@ -1,4 +1,4 @@
-from day18.probe import find_velocities_within_target_area
+from day17.probe import find_velocities_within_target_area
 
 
 def main():

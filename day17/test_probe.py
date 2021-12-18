@@ -1,6 +1,6 @@
 import unittest
 
-from day18.probe import parse_target_area, contains_point, step_probe, multiple_steps_probe
+from day17.probe import parse_target_area, contains_point, step_probe, multiple_steps_probe
 
 
 class ProbeTestCase(unittest.TestCase):
